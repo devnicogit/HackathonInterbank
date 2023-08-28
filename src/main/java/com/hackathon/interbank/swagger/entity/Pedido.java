@@ -1,10 +1,11 @@
 package com.hackathon.interbank.swagger.entity;
 
-import com.hackathon.interbank.security.entity.Cliente;
+import com.hackathon.interbank.security.entity.Usuario;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Pedido {
@@ -18,7 +19,7 @@ public class Pedido {
     private BigDecimal total;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private Clientes cliente;
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private EstadoPedido estado;
@@ -26,10 +27,18 @@ public class Pedido {
     @JoinColumn(name = "cupon_id")
     private Cupon cupon;
 
+    @OneToMany(mappedBy = "pedido")
+    private Set<DetallePedido> detalles;
+
+    @OneToOne(mappedBy = "pedido")
+    private TransaccionesStripe transaccion;
+
     public Pedido(){}
 
 
-    public Pedido(Long pedido_id, Date fecha, BigDecimal subtotal, BigDecimal igv, BigDecimal total, Cliente cliente, EstadoPedido estado, Cupon cupon) {
+
+
+    public Pedido(Long pedido_id, Date fecha, BigDecimal subtotal, BigDecimal igv, BigDecimal total, Clientes cliente, EstadoPedido estado, Cupon cupon) {
         this.pedido_id = pedido_id;
         this.fecha = fecha;
         this.subtotal = subtotal;
@@ -40,7 +49,7 @@ public class Pedido {
         this.cupon = cupon;
     }
 
-    public Pedido(Date fecha, BigDecimal subtotal, BigDecimal igv, BigDecimal total, Cliente cliente, EstadoPedido estado, Cupon cupon) {
+    public Pedido(Date fecha, BigDecimal subtotal, BigDecimal igv, BigDecimal total, Clientes cliente, EstadoPedido estado, Cupon cupon) {
         this.fecha = fecha;
         this.subtotal = subtotal;
         this.igv = igv;
@@ -50,6 +59,17 @@ public class Pedido {
         this.cupon = cupon;
     }
 
+    public Pedido(Date fecha, BigDecimal subtotal, BigDecimal igv, BigDecimal total, Clientes cliente, EstadoPedido estado, Cupon cupon, Set<DetallePedido> detalles, TransaccionesStripe transaccion) {
+        this.fecha = fecha;
+        this.subtotal = subtotal;
+        this.igv = igv;
+        this.total = total;
+        this.cliente = cliente;
+        this.estado = estado;
+        this.cupon = cupon;
+        this.detalles = detalles;
+        this.transaccion = transaccion;
+    }
 
     public Long getId() {
         return pedido_id;
@@ -91,11 +111,11 @@ public class Pedido {
         this.total = total;
     }
 
-    public Cliente getCliente() {
+    public Clientes getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Clientes cliente) {
         this.cliente = cliente;
     }
 

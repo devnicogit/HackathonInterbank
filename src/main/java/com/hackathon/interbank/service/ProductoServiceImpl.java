@@ -3,7 +3,7 @@ package com.hackathon.interbank.service;
 
 import com.hackathon.interbank.repository.CategoriaRepository;
 import com.hackathon.interbank.repository.ProductoRepository;
-import com.hackathon.interbank.swagger.entity.Producto;
+import com.hackathon.interbank.swagger.entity.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,29 +20,29 @@ public class ProductoServiceImpl implements ProductoService{
     private CategoriaRepository categoriaRepository;
 
     @Override
-    public List<Producto> findAll() {
+    public List<Curso> findAll() {
         return productoRepository.findAll();
     }
 
     @Override
-    public Producto findById(Long id) {
+    public Curso findById(Long id) {
         return productoRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<Producto> findByIds(Long id) {
+    public Optional<Curso> findByIds(Long id) {
         return productoRepository.findById(id);
     }
 
     @Override
-    public Producto save(Producto producto) {
+    public Curso save(Curso producto) {
         return productoRepository.save(producto);
     }
 
     @Override
-    public Producto update(Long id, Producto producto) {
+    public Curso update(Long id, Curso producto) {
 
-        Producto existingProducto = productoRepository.findById(id).orElse(null);
+        Curso existingProducto = productoRepository.findById(id).orElse(null);
         if (existingProducto == null) {
             return null;
         }
@@ -54,7 +54,7 @@ public class ProductoServiceImpl implements ProductoService{
         existingProducto.setPrecio(producto.getPrecio());
         existingProducto.setDescuento(producto.getDescuento());
 
-        Producto updatedProducto = productoRepository.save(existingProducto);
+        Curso updatedProducto = productoRepository.save(existingProducto);
         return updatedProducto;
     }
 

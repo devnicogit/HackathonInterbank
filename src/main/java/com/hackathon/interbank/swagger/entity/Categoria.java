@@ -9,7 +9,7 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "categoria_id")
-    private Long id;
+    private Long categoria_id;
 
     @Column(name = "nombre", unique = true, nullable = false)
     private String nombre;
@@ -19,8 +19,8 @@ public class Categoria {
     public Categoria() {
     }
 
-    public Categoria(Long id, String nombre, String descripcion) {
-        this.id = id;
+    public Categoria(Long categoria_id, String nombre, String descripcion) {
+        this.categoria_id = categoria_id;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -32,11 +32,11 @@ public class Categoria {
     }
 
     public Long getId() {
-        return id;
+        return categoria_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long categoria_id) {
+        this.categoria_id = categoria_id;
     }
 
     public String getNombre() {

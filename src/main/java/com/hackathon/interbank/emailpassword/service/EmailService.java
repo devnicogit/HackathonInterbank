@@ -1,10 +1,9 @@
 package com.hackathon.interbank.emailpassword.service;
 
 import com.hackathon.interbank.emailpassword.dto.EmailValuesDTO;
-import com.hackathon.interbank.security.repository.ClienteRepository;
+import com.hackathon.interbank.security.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class EmailService {
     TemplateEngine templateEngine;
 
     @Autowired
-    ClienteRepository clienteRepository;
+    UsuarioRepository clienteRepository;
 
     @Value("${mail.urlFront}")
     private String urlFront;

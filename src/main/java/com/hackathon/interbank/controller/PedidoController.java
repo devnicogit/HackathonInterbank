@@ -1,8 +1,8 @@
 package com.hackathon.interbank.controller;
 
 import com.hackathon.interbank.dto.PedidoDto;
-import com.hackathon.interbank.security.entity.Cliente;
-import com.hackathon.interbank.security.service.ClienteService;
+import com.hackathon.interbank.security.entity.Usuario;
+import com.hackathon.interbank.security.service.UsuarioService;
 import com.hackathon.interbank.service.CuponService;
 import com.hackathon.interbank.service.EstadoPedidoService;
 import com.hackathon.interbank.service.PedidoService;
@@ -31,7 +31,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @Autowired
-    private ClienteService clienteService;
+    private UsuarioService clienteService;
 
     @Autowired
     private EstadoPedidoService estadoPedidoService;
@@ -71,7 +71,7 @@ public class PedidoController {
         Long cupon = pedidoDto.getCupon();
 
 
-        Optional<Cliente> clienteOptional  = clienteService.findById(cliente);
+        Optional<Usuario> clienteOptional  = clienteService.findById(cliente);
         if (!clienteOptional.isPresent()) {
 
             return ResponseEntity.notFound().build();

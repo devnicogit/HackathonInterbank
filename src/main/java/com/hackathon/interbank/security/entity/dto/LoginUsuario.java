@@ -6,6 +6,8 @@ public class LoginUsuario {
     @NotBlank
     private String nombreUsuario;
     @NotBlank
+    private String email;
+    @NotBlank
     private String password;
 
     public String getNombreUsuario() {
@@ -14,6 +16,14 @@ public class LoginUsuario {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

@@ -6,10 +6,10 @@ import com.hackathon.interbank.security.entity.dto.LoginUsuario;
 import com.hackathon.interbank.security.entity.dto.NuevoUsuario;
 import com.hackathon.interbank.security.enums.RolNombre;
 import com.hackathon.interbank.security.repository.RolRepository;
-import com.hackathon.interbank.security.service.ClienteService;
+import com.hackathon.interbank.security.service.UsuarioService;
 import com.hackathon.interbank.security.service.RolService;
 import com.hackathon.interbank.dto.Mensaje;
-import com.hackathon.interbank.security.entity.Cliente;
+import com.hackathon.interbank.security.entity.Usuario;
 import com.hackathon.interbank.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +44,7 @@ public class AuthController {
     RolRepository rolRepository;
 
     @Autowired
-    ClienteService clienteService;
+    UsuarioService usuarioService;
 
     @Autowired
     RolService rolService;
@@ -58,14 +58,12 @@ public class AuthController {
 
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-        if(clienteService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
-            return new ResponseEntity(new Mensaje("ese nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
-        if(clienteService.existsByEmail(nuevoUsuario.getEmail()))
+        if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
             return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
 
 
-        Cliente cliente =
-                new Cliente(nuevoUsuario.getNombre(), nuevoUsuario.getEmail(), nuevoUsuario.getNombreUsuario(),
+        Usuario usuario =
+                new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getEmail(),
                         passwordEncoder.encode(nuevoUsuario.getPassword()));
         Set<Rol> roles = new HashSet<>();
         // asignar roles
@@ -76,9 +74,9 @@ public class AuthController {
             }
         }
 
-        cliente.setRoles(roles);
-        clienteService.save(cliente);
-        return new ResponseEntity(new Mensaje("Cliente guardado"), HttpStatus.CREATED);
+        usuario.setRoles(roles);
+        usuarioService.save(usuario);
+        return new ResponseEntity(new Mensaje("Usuario guardado"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
@@ -86,7 +84,7 @@ public class AuthController {
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
         Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getEmail(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         JwtDto jwtDto = new JwtDto(jwt);
@@ -106,18 +104,18 @@ public class AuthController {
         return new ResponseEntity<List<Rol>>(roles, HttpStatus.OK);
     }
 
-    @GetMapping("/clientes")
-    public ResponseEntity<List<Cliente>> listarClientes() {
-        List<Cliente> asesores = clienteService.findAll();
-        return new ResponseEntity(asesores, HttpStatus.OK);
+    @GetMapping("/usuarios")
+    public ResponseEntity<List<Usuario>> listarUsuarios() {
+        List<Usuario> usuarios = usuarioService.findAll();
+        return new ResponseEntity(usuarios, HttpStatus.OK);
     }
 
-    @GetMapping("/clientes/{nombreUsuario}")
-    public ResponseEntity<Cliente> getAsesorByNombreUsuario(@PathVariable String nombreUsuario) {
-        Optional<Cliente> asesor = clienteService.getByNombreUsuario(nombreUsuario);
+    @GetMapping("/usuarios/{nombreUsuario}")
+    public ResponseEntity<Usuario> getUsuarioByEmaiil(@PathVariable String email) {
+        Optional<Usuario> usuario = usuarioService.getByEmail(email);
 
-        if (asesor.isPresent()) {
-            return ResponseEntity.ok(asesor.get());
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok(usuario.get());
         } else {
             return ResponseEntity.notFound().build();
         }

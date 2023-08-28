@@ -8,15 +8,15 @@ public class DetallePedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long detalle_id;
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id")
-    private Producto producto;
+    @JoinColumn(name = "curso_id")
+    private Curso curso;
 
     private Integer cantidad;
     private BigDecimal subtotal;
@@ -24,27 +24,27 @@ public class DetallePedido {
 
     public DetallePedido(){}
 
-    public DetallePedido(Long id, Pedido pedido, Producto producto, Integer cantidad, BigDecimal subtotal) {
-        this.id = id;
+    public DetallePedido(Long detalle_id, Pedido pedido, Curso curso, Integer cantidad, BigDecimal subtotal) {
+        this.detalle_id = detalle_id;
         this.pedido = pedido;
-        this.producto = producto;
+        this.curso = curso;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
 
-    public DetallePedido(Pedido pedido, Producto producto, Integer cantidad, BigDecimal subtotal) {
+    public DetallePedido(Pedido pedido, Curso curso, Integer cantidad, BigDecimal subtotal) {
         this.pedido = pedido;
-        this.producto = producto;
+        this.curso = curso;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
 
     public Long getId() {
-        return id;
+        return detalle_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.detalle_id = detalle_id;
     }
 
     public Pedido getPedido() {
@@ -55,12 +55,12 @@ public class DetallePedido {
         this.pedido = pedido;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public Integer getCantidad() {

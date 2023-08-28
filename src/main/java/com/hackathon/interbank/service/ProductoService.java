@@ -3,22 +3,22 @@ package com.hackathon.interbank.service;
 
 
 
-import com.hackathon.interbank.swagger.entity.Producto;
+import com.hackathon.interbank.swagger.entity.Curso;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductoService {
 
-    List<Producto> findAll();
+    List<Curso> findAll();
 
-    Producto findById(Long id);
+    Curso findById(Long id);
 
-    Optional<Producto> findByIds(Long id);
+    Optional<Curso> findByIds(Long id);
 
-    Producto save(Producto producto);
+    Curso save(Curso producto);
 
-    Producto update(Long id, Producto producto);
+    Curso update(Long id, Curso producto);
 
 
     void delete(Long id);

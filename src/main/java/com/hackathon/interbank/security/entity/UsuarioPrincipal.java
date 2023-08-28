@@ -8,29 +8,27 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClientePrincipal implements UserDetails {
+public class UsuarioPrincipal implements UserDetails {
 
     private Long id;
     private String nombre;
 
-    private String nombreUsuario;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public ClientePrincipal(String nombre, String email, String nombreUsuario, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UsuarioPrincipal(String nombre, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.nombre = nombre;
         this.email = email;
-        this.nombreUsuario = nombreUsuario;
         this.password = password;
         this.authorities = authorities;
     }
 
-    public static ClientePrincipal build(Cliente cliente){
+    public static UsuarioPrincipal build(Usuario usuario){
         List<GrantedAuthority> authorities =
-                cliente.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol
+                usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol
                         .getRolNombre().name())).collect(Collectors.toList());
-        return new ClientePrincipal(cliente.getNombre(), cliente.getEmail(), cliente.getNombreUsuario(), cliente.getPassword(), authorities);
+        return new UsuarioPrincipal(usuario.getNombre(), usuario.getEmail(), usuario.getPassword(), authorities);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class ClientePrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nombreUsuario;
+        return null;
     }
 
     @Override
@@ -83,6 +81,11 @@ public class ClientePrincipal implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

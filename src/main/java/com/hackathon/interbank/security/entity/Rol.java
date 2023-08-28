@@ -13,20 +13,20 @@ import java.util.Set;
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long rol_id;
     @NotNull
     @Enumerated(EnumType.STRING)
     private RolNombre rolNombre;
 
     @ManyToMany(mappedBy = "roles")
     @JsonManagedReference
-    private Set<Cliente> clientes = new HashSet<>();
+    private Set<Usuario> clientes = new HashSet<>();
 
     public Rol() {
     }
 
-    public Rol(Long id){
-        this.id = id;
+    public Rol(Long rol_id){
+        this.rol_id = rol_id;
     }
 
     public Rol(@NotNull RolNombre rolNombre) {
@@ -34,11 +34,11 @@ public class Rol {
     }
 
     public Long getId() {
-        return id;
+        return rol_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long rol_id) {
+        this.rol_id = rol_id;
     }
 
     public RolNombre getRolNombre() {

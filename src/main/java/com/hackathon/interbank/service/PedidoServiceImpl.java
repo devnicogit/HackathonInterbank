@@ -1,10 +1,11 @@
 package com.hackathon.interbank.service;
 
 
+import com.hackathon.interbank.repository.ClientesRepository;
 import com.hackathon.interbank.repository.CuponRepository;
 import com.hackathon.interbank.repository.EstadoPedidoRepository;
 import com.hackathon.interbank.repository.PedidoRepository;
-import com.hackathon.interbank.security.repository.ClienteRepository;
+import com.hackathon.interbank.security.repository.UsuarioRepository;
 import com.hackathon.interbank.swagger.entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class PedidoServiceImpl implements PedidoService{
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClientesRepository clienteRepository;
 
     @Autowired
     private EstadoPedidoRepository estadoPedidoRepository;

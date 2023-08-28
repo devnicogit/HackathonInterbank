@@ -1,9 +1,9 @@
 package com.hackathon.interbank.security.jwt;
 
-import com.hackathon.interbank.security.entity.Cliente;
-import com.hackathon.interbank.security.entity.ClientePrincipal;
+import com.hackathon.interbank.security.entity.Usuario;
+import com.hackathon.interbank.security.entity.UsuarioPrincipal;
 import com.hackathon.interbank.security.entity.dto.JwtDto;
-import com.hackathon.interbank.security.repository.ClienteRepository;
+import com.hackathon.interbank.security.repository.UsuarioRepository;
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.JWTParser;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class JwtProvider {
 
     @Autowired
-    private ClienteRepository asesorRepository;
+    private UsuarioRepository usuarioRepository;
 
     private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
@@ -37,12 +37,13 @@ public class JwtProvider {
     private int expiration;
 
     public String generateToken(Authentication authentication) {
-        ClientePrincipal clientePrincipal = (ClientePrincipal) authentication.getPrincipal();
-        List<String> roles = clientePrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        Optional<Cliente> cliente = asesorRepository.findByNombreUsuario(clientePrincipal.getUsername());
+        UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
+        List<String> roles = usuarioPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioPrincipal.getEmail());
+        //Optional<Usuario> cliente = usuarioRepository.findByNombreUsuario(clientePrincipal.getUsername());
         return Jwts.builder()
-                .setSubject(clientePrincipal.getUsername())
-                .claim("id", cliente.get().getId())
+                .setSubject(usuarioPrincipal.getEmail())
+                .claim("id", usuario.get().getId())
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))
@@ -51,6 +52,10 @@ public class JwtProvider {
     }
 
     public String getNombreUsuarioFromToken(String token) {
+        return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String getEmailFromToken(String token){
         return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().getSubject();
     }
 

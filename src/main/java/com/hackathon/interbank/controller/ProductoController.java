@@ -1,14 +1,11 @@
 package com.hackathon.interbank.controller;
 
 
-import com.hackathon.interbank.dto.DetallePedidoDto;
 import com.hackathon.interbank.dto.ProductoDto;
 import com.hackathon.interbank.service.CategoriaService;
 import com.hackathon.interbank.service.ProductoService;
 import com.hackathon.interbank.swagger.entity.Categoria;
-import com.hackathon.interbank.swagger.entity.DetallePedido;
-import com.hackathon.interbank.swagger.entity.Pedido;
-import com.hackathon.interbank.swagger.entity.Producto;
+import com.hackathon.interbank.swagger.entity.Curso;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,15 +31,15 @@ public class ProductoController {
 
     @ApiOperation("Muestra una lista de Productos")
     @GetMapping("/lista")
-    public ResponseEntity<List<Producto>> list(){
-        List<Producto> list = productoService.findAll();
-        return new ResponseEntity<List<Producto>>(list, HttpStatus.OK);
+    public ResponseEntity<List<Curso>> list(){
+        List<Curso> list = productoService.findAll();
+        return new ResponseEntity<List<Curso>>(list, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Producto> getProductoById(@PathVariable Long id) {
-        Producto producto = productoService.findById(id);
+    public ResponseEntity<Curso> getProductoById(@PathVariable Long id) {
+        Curso producto = productoService.findById(id);
         return ResponseEntity.ok(producto);
     }
 
@@ -67,7 +64,7 @@ public class ProductoController {
 
         }
 
-        Producto producto = new Producto();
+        Curso producto = new Curso();
         producto.setNombre(nombre);
         producto.setDescripcion(descripcion);
         producto.setCategoria(categoriaOptional.get());
@@ -77,7 +74,7 @@ public class ProductoController {
         producto.setDescuento(descuento);
 
 
-        Producto nuevoProducto = productoService.save(producto);
+        Curso nuevoProducto = productoService.save(producto);
 
 
         ProductoDto nuevoProductoDto = new ProductoDto();
@@ -94,7 +91,7 @@ public class ProductoController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @Valid @RequestBody Producto producto) {
+    public ResponseEntity<Curso> updateProducto(@PathVariable Long id, @Valid @RequestBody Curso producto) {
 
 
         Categoria categoria = categoriaService.findById(producto.getCategoria().getId());
@@ -111,7 +108,7 @@ public class ProductoController {
 
 
 
-        Producto updatedProducto = productoService.update(id, producto);
+        Curso updatedProducto = productoService.update(id, producto);
         return ResponseEntity.ok(updatedProducto);
     }
 

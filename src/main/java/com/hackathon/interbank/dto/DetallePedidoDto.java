@@ -1,10 +1,5 @@
 package com.hackathon.interbank.dto;
 
-import com.hackathon.interbank.swagger.entity.Pedido;
-import com.hackathon.interbank.swagger.entity.Producto;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 public class DetallePedidoDto {

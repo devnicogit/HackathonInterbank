@@ -1,8 +1,8 @@
 package com.hackathon.interbank.security.service;
 
-import com.hackathon.interbank.security.repository.ClienteRepository;
-import com.hackathon.interbank.security.entity.Cliente;
-import com.hackathon.interbank.security.entity.ClientePrincipal;
+import com.hackathon.interbank.security.repository.UsuarioRepository;
+import com.hackathon.interbank.security.entity.Usuario;
+import com.hackathon.interbank.security.entity.UsuarioPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,17 +13,21 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    ClienteService clienteService;
+    UsuarioService usuarioService;
 
     @Autowired
-    ClienteRepository clienteRepository;
+    UsuarioRepository usuarioRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String nombreOrEmail) throws UsernameNotFoundException {
-        Cliente cliente = clienteService.getByNombreUsuarioOrEmail(nombreOrEmail).get();
-        return ClientePrincipal.build(cliente);
+
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        Usuario usuario = usuarioService.getByEmail(email).get();
+        return UsuarioPrincipal.build(usuario);
 
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
+    }
 }

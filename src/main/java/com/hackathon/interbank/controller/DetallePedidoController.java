@@ -2,8 +2,6 @@ package com.hackathon.interbank.controller;
 
 
 import com.hackathon.interbank.dto.DetallePedidoDto;
-import com.hackathon.interbank.dto.PedidoDto;
-import com.hackathon.interbank.security.entity.Cliente;
 import com.hackathon.interbank.service.DetallePedidoService;
 import com.hackathon.interbank.service.PedidoService;
 import com.hackathon.interbank.service.ProductoService;
@@ -17,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +65,7 @@ public class DetallePedidoController {
 
         }
 
-        Optional<Producto> productoOptional = productoService.findByIds(producto);
+        Optional<Curso> productoOptional = productoService.findByIds(producto);
         if (!productoOptional.isPresent()) {
 
             return ResponseEntity.notFound().build();
