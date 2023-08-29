@@ -8,7 +8,7 @@ import com.hackathon.interbank.swagger.entity.Curso;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductoService {
+public interface CursoService {
 
     List<Curso> findAll();
 
@@ -16,9 +16,9 @@ public interface ProductoService {
 
     Optional<Curso> findByIds(Long id);
 
-    Curso save(Curso producto);
+    Curso save(Curso curso);
 
-    Curso update(Long id, Curso producto);
+    Curso update(Long id, Curso curso);
 
 
     void delete(Long id);

@@ -27,10 +27,11 @@ public class Pedido {
     @JoinColumn(name = "cupon_id")
     private Cupon cupon;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "detalle_id")
     private Set<DetallePedido> detalles;
 
-    @OneToOne(mappedBy = "pedido")
+    @OneToOne
+    @JoinColumn(name = "transaccion_id")
     private TransaccionesStripe transaccion;
 
     public Pedido(){}

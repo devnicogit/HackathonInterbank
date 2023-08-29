@@ -3,9 +3,11 @@ package com.hackathon.interbank.controller;
 import com.hackathon.interbank.dto.PedidoDto;
 import com.hackathon.interbank.security.entity.Usuario;
 import com.hackathon.interbank.security.service.UsuarioService;
+import com.hackathon.interbank.service.ClientesService;
 import com.hackathon.interbank.service.CuponService;
 import com.hackathon.interbank.service.EstadoPedidoService;
 import com.hackathon.interbank.service.PedidoService;
+import com.hackathon.interbank.swagger.entity.Clientes;
 import com.hackathon.interbank.swagger.entity.Cupon;
 import com.hackathon.interbank.swagger.entity.EstadoPedido;
 import com.hackathon.interbank.swagger.entity.Pedido;
@@ -31,7 +33,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @Autowired
-    private UsuarioService clienteService;
+    private ClientesService clienteService;
 
     @Autowired
     private EstadoPedidoService estadoPedidoService;
@@ -71,7 +73,7 @@ public class PedidoController {
         Long cupon = pedidoDto.getCupon();
 
 
-        Optional<Usuario> clienteOptional  = clienteService.findById(cliente);
+        Optional<Clientes> clienteOptional  = clienteService.findByIds(cliente);
         if (!clienteOptional.isPresent()) {
 
             return ResponseEntity.notFound().build();
@@ -103,7 +105,7 @@ public class PedidoController {
         Pedido nuevoPedido = pedidoService.save(pedido);
 
 
-        System.out.println("Valor de detallesCliente: " + clienteOptional.get().getNombreUsuario());
+        //System.out.println("Valor de detallesCliente: " + clienteOptional.get().getNombreUsuario());
 
 
         PedidoDto nuevoPedidoDto = new PedidoDto();
@@ -111,7 +113,7 @@ public class PedidoController {
         nuevoPedidoDto.setSubtotal(nuevoPedido.getSubtotal());
         nuevoPedidoDto.setIgv(nuevoPedido.getIgv());
         nuevoPedidoDto.setTotal(nuevoPedido.getTotal());
-        nuevoPedidoDto.setCliente(nuevoPedido.getCliente().getId());
+        nuevoPedidoDto.setCliente(nuevoPedido.getCliente().getClienteID());
         nuevoPedidoDto.setEstadoPedido(nuevoPedido.getEstado().getId());
         nuevoPedidoDto.setCupon(nuevoPedido.getCupon().getId());
 

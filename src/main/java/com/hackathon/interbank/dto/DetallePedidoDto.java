@@ -4,37 +4,37 @@ import java.math.BigDecimal;
 
 public class DetallePedidoDto {
 
-    private Long id;
+    private Long detalle_id;
 
     private Long pedido;
 
-    private Long producto;
+    private Long curso;
     private Integer cantidad;
     private BigDecimal subtotal;
 
     public DetallePedidoDto(){}
 
-    public DetallePedidoDto(Long id, Long pedido, Long producto, Integer cantidad, BigDecimal subtotal) {
-        this.id = id;
+    public DetallePedidoDto(Long detalle_id, Long pedido, Long curso, Integer cantidad, BigDecimal subtotal) {
+        this.detalle_id = detalle_id;
         this.pedido = pedido;
-        this.producto = producto;
+        this.curso = curso;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
 
-    public DetallePedidoDto(Long pedido, Long producto, Integer cantidad, BigDecimal subtotal) {
+    public DetallePedidoDto(Long pedido, Long curso, Integer cantidad, BigDecimal subtotal) {
         this.pedido = pedido;
-        this.producto = producto;
+        this.curso = curso;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
 
     public Long getId() {
-        return id;
+        return detalle_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long detalle_id) {
+        this.detalle_id = detalle_id;
     }
 
     public Long getPedido() {
@@ -45,12 +45,12 @@ public class DetallePedidoDto {
         this.pedido = pedido;
     }
 
-    public Long getProducto() {
-        return producto;
+    public Long getCurso() {
+        return curso;
     }
 
-    public void setProducto(Long producto) {
-        this.producto = producto;
+    public void setCurso(Long curso) {
+        this.curso = curso;
     }
 
     public Integer getCantidad() {

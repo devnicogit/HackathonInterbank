@@ -4,7 +4,7 @@ package com.hackathon.interbank.controller;
 import com.hackathon.interbank.dto.DetallePedidoDto;
 import com.hackathon.interbank.service.DetallePedidoService;
 import com.hackathon.interbank.service.PedidoService;
-import com.hackathon.interbank.service.ProductoService;
+import com.hackathon.interbank.service.CursoService;
 import com.hackathon.interbank.swagger.entity.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class DetallePedidoController {
     private PedidoService pedidoService;
 
     @Autowired
-    private ProductoService productoService;
+    private CursoService cursoService;
 
     @ApiOperation("Muestra una lista de Detalle de Pedidos")
     @GetMapping("/lista")
@@ -53,7 +53,7 @@ public class DetallePedidoController {
     ) {
 
         Long pedido = detallePedidoDto.getPedido();
-        Long producto = detallePedidoDto.getProducto();
+        Long curso = detallePedidoDto.getCurso();
         int cantidad = detallePedidoDto.getCantidad();
         BigDecimal subtotal = detallePedidoDto.getSubtotal();
 
@@ -65,8 +65,8 @@ public class DetallePedidoController {
 
         }
 
-        Optional<Curso> productoOptional = productoService.findByIds(producto);
-        if (!productoOptional.isPresent()) {
+        Optional<Curso> cursoOptional = cursoService.findByIds(curso);
+        if (!cursoOptional.isPresent()) {
 
             return ResponseEntity.notFound().build();
 
@@ -75,7 +75,7 @@ public class DetallePedidoController {
 
         DetallePedido detallePedido = new DetallePedido();
         detallePedido.setPedido(pedidoOptional.get());
-        detallePedido.setProducto(productoOptional.get());
+        detallePedido.setCurso(cursoOptional.get());
         detallePedido.setCantidad(cantidad);
         detallePedido.setSubtotal(subtotal);
 
@@ -85,7 +85,7 @@ public class DetallePedidoController {
 
         DetallePedidoDto nuevoDetallePedidoDto = new DetallePedidoDto();
         nuevoDetallePedidoDto.setPedido(nuevoDetallePedido.getPedido().getId());
-        nuevoDetallePedidoDto.setProducto(nuevoDetallePedido.getProducto().getId());
+        nuevoDetallePedidoDto.setCurso(nuevoDetallePedido.getCurso().getId());
         nuevoDetallePedidoDto.setCantidad(nuevoDetallePedido.getCantidad());
         nuevoDetallePedidoDto.setSubtotal(nuevoDetallePedido.getSubtotal());
 

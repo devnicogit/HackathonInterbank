@@ -1,50 +1,44 @@
 package com.hackathon.interbank.dto;
 
-import com.hackathon.interbank.swagger.entity.Categoria;
-
 import java.math.BigDecimal;
 
-public class ProductoDto {
+public class CursoDto {
 
-    private Long producto_id;
+    private Long curso_id;
     private String nombre;
     private String descripcion;
     private Long categoria;
-    private Boolean igv;
     private String imagen;
     private BigDecimal precio;
-    private BigDecimal descuento;
 
-    public ProductoDto() {
+
+    public CursoDto() {
     }
 
-    public ProductoDto(Long producto_id, String nombre, String descripcion, Long categoria, Boolean igv, String imagen, BigDecimal precio, BigDecimal descuento) {
-        this.producto_id = producto_id;
+    public CursoDto(Long curso_id, String nombre, String descripcion, Long categoria, String imagen, BigDecimal precio) {
+        this.curso_id = curso_id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
-        this.igv = igv;
         this.imagen = imagen;
         this.precio = precio;
-        this.descuento = descuento;
+
     }
 
-    public ProductoDto(String nombre, String descripcion, Long categoria, Boolean igv, String imagen, BigDecimal precio, BigDecimal descuento) {
+    public CursoDto(String nombre, String descripcion, Long categoria, String imagen, BigDecimal precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
-        this.igv = igv;
         this.imagen = imagen;
         this.precio = precio;
-        this.descuento = descuento;
     }
 
-    public Long getProducto_id() {
-        return producto_id;
+    public Long getCurso_id() {
+        return curso_id;
     }
 
-    public void setProducto_id(Long producto_id) {
-        this.producto_id = producto_id;
+    public void setCurso_id(Long curso_id) {
+        this.curso_id = curso_id;
     }
 
     public String getNombre() {
@@ -71,14 +65,6 @@ public class ProductoDto {
         this.categoria = categoria;
     }
 
-    public Boolean getIgv() {
-        return igv;
-    }
-
-    public void setIgv(Boolean igv) {
-        this.igv = igv;
-    }
-
     public String getImagen() {
         return imagen;
     }
@@ -93,13 +79,5 @@ public class ProductoDto {
 
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
-    }
-
-    public BigDecimal getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(BigDecimal descuento) {
-        this.descuento = descuento;
     }
 }
