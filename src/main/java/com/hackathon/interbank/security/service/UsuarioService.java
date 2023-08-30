@@ -29,11 +29,13 @@ public class UsuarioService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
+    /*public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
         return usuarioRepository.findByNombreUsuario(nombreUsuario);
+    }*/
+
+    public Optional<Usuario> getByNombre(String nombre){
+        return usuarioRepository.findByNombre(nombre);
     }
-
-
     public Optional<Usuario> getByNombreUsuarioOrEmail(String nombreOrEmail){
         return usuarioRepository.findByNombreUsuarioOrEmail(nombreOrEmail, nombreOrEmail);
     }

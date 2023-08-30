@@ -20,6 +20,9 @@ public class Usuario {
     private String email;
     @NotNull
     private String password;
+
+    @Column(unique = true)
+    private String nombreUsuario;
     private String tokenPassword;
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
@@ -47,6 +50,13 @@ public class Usuario {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+    }
+
+    public Usuario(String nombre, String email, String password, String nombreUsuario) {
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+        this.nombreUsuario = nombreUsuario;
     }
 
     public Long getId() {

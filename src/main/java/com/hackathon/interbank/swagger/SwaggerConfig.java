@@ -2,6 +2,7 @@ package com.hackathon.interbank.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -55,5 +56,16 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 "www.licencia.com",
                 Collections.emptyList()
         );
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter loggingFilter() {
+        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+        loggingFilter.setIncludeQueryString(true);
+        loggingFilter.setIncludePayload(true);
+        loggingFilter.setMaxPayloadLength(10000); // Ajusta el límite según tus necesidades
+        loggingFilter.setIncludeHeaders(false); // Opcional: muestra o no los encabezados
+
+        return loggingFilter;
     }
 }

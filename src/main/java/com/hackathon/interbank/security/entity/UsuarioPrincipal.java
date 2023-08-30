@@ -15,12 +15,22 @@ public class UsuarioPrincipal implements UserDetails {
 
     private String email;
     private String password;
+
+    private String nombreUsuario;
     private Collection<? extends GrantedAuthority> authorities;
 
     public UsuarioPrincipal(String nombre, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+        this.authorities = authorities;
+    }
+
+    public UsuarioPrincipal(String nombre, String email, String password, String nombreUsuario, Collection<? extends GrantedAuthority> authorities) {
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+        this.nombreUsuario = nombreUsuario;
         this.authorities = authorities;
     }
 
@@ -43,7 +53,7 @@ public class UsuarioPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return nombreUsuario;
     }
 
     @Override

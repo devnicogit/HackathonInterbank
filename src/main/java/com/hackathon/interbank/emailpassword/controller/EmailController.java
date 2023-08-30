@@ -46,7 +46,7 @@ public class EmailController {
 
     @PostMapping("/send-email")
     public ResponseEntity<?> sendEmailTemplate(@RequestBody EmailValuesDTO dto) {
-        Optional<Usuario> usuarioOpt = usuarioService.getByNombreUsuarioOrEmail(dto.getMailTo());
+        Optional<Usuario> usuarioOpt = usuarioService.getByEmail(dto.getMailTo());
         if(!usuarioOpt.isPresent())
             return new ResponseEntity(new Mensaje("No existe ningún Usuario con esas credenciales"), HttpStatus.NOT_FOUND);
         Usuario usuario = usuarioOpt.get();

@@ -15,9 +15,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UsuarioService usuarioService;
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
-
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioService.getByEmail(email).get();
@@ -25,10 +22,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String nombreOrEmail) throws UsernameNotFoundException {
         Usuario usuario = usuarioService.getByNombreUsuarioOrEmail(nombreOrEmail).get();
         return UsuarioPrincipal.build(usuario);
+
     }
+
+
+    /*@Override
+    public UserDetails loadUserByUsername(String nombreOrEmail) throws UsernameNotFoundException {
+        Usuario usuario = usuarioService.getByNombreUsuarioOrEmail(nombreOrEmail).get();
+        return UsuarioPrincipal.build(usuario);
+    }*/
 }
